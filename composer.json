@@ -1,0 +1,12 @@
+{
+    "name": "yohann/pole_emploi_eval",
+    "description": "site pole emploi",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.0"
+    }
+}
