@@ -63,7 +63,6 @@ class MultiModel{
                 LIMIT " .$limit. "
                 OFFSET " .$offset . ";
         ";
-        var_dump($sql);
         $pdoStatement = $this->pdo->query($sql);
         
         
@@ -73,6 +72,26 @@ class MultiModel{
 
         
     
+    }
+    public function findOne($id){
+        $this->$id =$id;
+        $currentId = " WHERE `id` LIKE '" .$id."'";
+
+        $sql = "SELECT
+                `id`
+                ,`titre`
+                ,`description`
+                ,`salaire`
+                FROM " . self::TABLE_NAME ."
+                $currentId
+            
+        ";
+        $pdoStatement = $this->pdo->query($sql);
+        
+        $result = $pdoStatement->fetchObject(self::class);
+        
+        return $result;
+
     }
 
 

@@ -30,6 +30,10 @@ class Application
         'add' => [
             'Controller' => 'MultiController',
             'method' => 'add'
+        ],
+        'single' => [
+            'Controller' => 'MultiController',
+            'method' => 'one'
         ]
 
     ];

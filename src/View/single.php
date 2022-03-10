@@ -19,6 +19,18 @@ require 'vendor/autoload.php';
     <title>Document</title>
 </head>
 <body>
-    <h1>Annonce Test </h1>
+    <h1>Annonce :</h1>
+    <h5><a href="?page=delete&id=<?= $single->getId()?>">Supprimer</a></h5> 
+      <div class="card h-100">
+        <div class="card-body">
+          <h3 class="card-title"><?= $single->getTitre() ?></h3>
+          <h4 class="card-title"><?= $single->getDescription() ?></h4>
+          <h5 class="card-title"><?= $single->getSalaire() ?></h5>
+          <p class="card-text"></p>
+          <h5><a href="?page=single&id=<?= $single->getId()?>">Consulter</a></h5> 
+        </div>
+      </div>
+    </div>
+    <a href="?page=multi">Retour Acceuil</a>
 </body>
 </html>

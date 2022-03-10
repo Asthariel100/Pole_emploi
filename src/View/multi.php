@@ -46,13 +46,14 @@ require 'vendor/autoload.php';
     </form>
     <div class="row row-cols-1 row-cols-md-3 g-4">
   <?php foreach($multis as $multi): ?>
-    <h5><a href="?page=delete&id=<?= $multi->getId()?>">Supprimer</a></h5>  
+    <h5><a href="?page=delete&id=<?= $multi->getId()?>">Supprimer</a></h5> 
       <div class="card h-100">
         <div class="card-body">
           <h3 class="card-title"><?= $multi->getTitre() ?></h3>
           <h4 class="card-title"><?= $multi->getDescription() ?></h4>
           <h5 class="card-title"><?= $multi->getSalaire() ?></h5>
           <p class="card-text"></p>
+          <h5><a href="?page=single&id=<?= $multi->getId()?>">Consulter</a></h5> 
         </div>
       </div>
     </div>
@@ -69,7 +70,7 @@ echo '<a href = "index.php?p=' . $page . '">' . $page . ' </a>';
  
   
 
-
+  <h1>Nouvelle Annonce</h1>
     <form method="post" action="?page=add">
         <input placeholder="Titre"name="titre"></input> 
         <input placeholder="Description"name="description"></input>

@@ -41,6 +41,16 @@ class MultiController extends AbstractController
             'nbrDePages'=> $nbrDePages,
         ]);
     }
+    public function one(){
+
+        $id = $_GET["id"];
+        $one = new  MultiModel();
+        $single = $one->findOne($id);
+        $this->render('single.php', [   
+            'single'=> $single,
+        ]);
+
+    }
     public function delete(){
         $id = $_GET["id"];
         $delete = new MultiModel(); 
