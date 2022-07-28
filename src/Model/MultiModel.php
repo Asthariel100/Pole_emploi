@@ -28,51 +28,54 @@ class MultiModel{
 
     public function findAll($page=1, $contrat =null, $lieu=null)
     { 
-        $nbElements = 'SELECT 
-                COUNT(`id`) 
-                FROM ' . self::TABLE_NAME .'
-        ';
-        $pdoStatement = $this->pdo->query($nbElements);
-        $nbElements = $pdoStatement->fetchColumn();
-        $limit = 1; 
-        $offset = ($page-1) * $limit;
-        $nbrDePages = ceil($nbElements/$limit);
-        $this->nbrDePages = $nbrDePages;
 
-        $contratRequete = "";
+    $contratRequete="" ; 
+    $lieuRequete=""; 
+
         if (!empty($contrat)){
-            
+        
             $contratRequete = " WHERE `contrat` LIKE '" .$contrat."'";
         }
-
-        $lieuRequete = "";
+    
         if(!empty($lieu)){
-            $lieuRequete = " AND `departement` LIKE '" .$lieu."'";
+            if(empty($contratRequete)){
+                $lieuRequete = " WHERE `departement` LIKE '" .$lieu."'";
+            }else{
+                $lieuRequete = " AND `departement` LIKE '" .$lieu."'";
+            }           
         }
 
-        $sql = "SELECT
-                `id`
-                ,`titre`
-                ,`description`
-                ,`salaire`
-                ,`date`
-                FROM " . self::TABLE_NAME ."
-                $contratRequete 
-                $lieuRequete 
-                ORDER BY `date` DESC 
-                LIMIT " .$limit. "
-                OFFSET " .$offset . ";
-        ";
-        $pdoStatement = $this->pdo->query($sql);
-        
-        
-        $result = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
-        
-        return $result;
+            $nbElements = 'SELECT 
+                    COUNT(`id`) 
+                    FROM ' . $result .'';
+            
+            $pdoStatement = $this->pdo->query($nbElements);
+            $nbElements = $pdoStatement->fetchColumn();
+            $limit = 1; 
+            $offset = ($page-1) * $limit;
+            $nbrDePages = ceil($nbElements/$limit);
+            $this->nbrDePages = $nbrDePages;
 
-        
-    
+            $sql = "SELECT
+                    `id`
+                    ,`titre`
+                    ,`description`
+                    ,`salaire`
+                    ,`date`
+                    FROM " . self::TABLE_NAME ." 
+                    $contratRequete  
+                    $lieuRequete          
+                    ORDER BY `date` DESC 
+                    LIMIT " .$limit. "
+                    OFFSET " .$offset . ";
+            ";
+            
+        $pdoStatement = $this->pdo->query($sql);
+                       
+        $result = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
+        return $result;  
     }
+
     public function findOne($id){
         $this->$id =$id;
         $currentId = " WHERE `id` LIKE '" .$id."'";
@@ -84,15 +87,13 @@ class MultiModel{
                 ,`salaire`
                 ,`date`
                 FROM " . self::TABLE_NAME ."
-                $currentId
-            
+                $currentId            
         ";
         $pdoStatement = $this->pdo->query($sql);
         
         $result = $pdoStatement->fetchObject(self::class);
-        
+       
         return $result;
-
     }
 
 

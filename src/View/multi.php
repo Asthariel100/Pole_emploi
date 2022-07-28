@@ -25,7 +25,9 @@ require 'vendor/autoload.php';
     <title>Document</title>
 </head>
 
-    <h1>Paul Emploi Occitanie</h1>
+    <div class="d-flex justify-items-center">
+      <h1>Paul Emploi Occitanie</h1>
+    </div>
 
     <form method="post">Contrat
     <input type="hidden" name="p" value="1">
@@ -52,11 +54,11 @@ require 'vendor/autoload.php';
     </form>
     <div>
   <?php foreach($multis as $multi): ?> 
-      <div class="card h-100">
+      <div class="card h-50">
         <div class="card-body">
-          <h3 class="card-title">Poste <?= $multi->getTitre() ?></h3>
-          <h4 class="card-title"><?= $multi->getDescription() ?></h4>
-          <h5 class="card-title">Salaire<?= $multi->getSalaire() ?></h5>
+          <h3 class="card-title">Poste: <?= $multi->getTitre() ?></h3>
+          <h4 class="card-title">Description: <?= $multi->getDescription() ?></h4>
+          <h5 class="card-title">Salaire: <?= $multi->getSalaire() ?></h5>
           <!-- <h5 class="card-title"><?= $multi->getDate() ?></h5> -->
           <p class="card-text"></p>
           <h5><a href="?page=single&id=<?= $multi->getId()?>">Consulter</a></h5>
@@ -77,9 +79,7 @@ require 'vendor/autoload.php';
     </li>
   <?php  for($page = 1; $page<= $nbrDePages; $page++){
   echo '<li class="page-item"><a class="page-link" href="index.php?p='. $page .'">'. $page.'</a></li>';
-  }
-    
-?>
+  }?>
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
@@ -88,11 +88,6 @@ require 'vendor/autoload.php';
     </li>
   </ul>
 </nav>
-
-
-
- 
-  
 
   <h1>Ajoutez une Annonce</h1>
     <form method="post" action="?page=add">
@@ -120,20 +115,6 @@ require 'vendor/autoload.php';
 
         <input type="date" placeholder="Date"name="date"></input>
         <button class="btn btn-primary" type="submit">Ajouter</button>
-
-
-     
-<!-- <?php
-// $date = date_create();
-// echo date_format($date, 'U = Y-m-d H:i:s') . "\n";
-
-// date_timestamp_set($date, 1171502725);
-// echo date_format($date, 'U = Y-m-d H:i:s') . "\n";
-?> -->
-
-
-<!-- <?= $multi->getDate()?> -->
-
     </form>
 </div>
 </body>
