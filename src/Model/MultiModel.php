@@ -29,12 +29,12 @@ class MultiModel{
     public function findAll($page=1, $contrat =null, $lieu=null)
     { 
         $nbElements = 'SELECT 
-                COUNT(`id`)
+                COUNT(`id`) 
                 FROM ' . self::TABLE_NAME .'
         ';
         $pdoStatement = $this->pdo->query($nbElements);
         $nbElements = $pdoStatement->fetchColumn();
-        $limit = 4; 
+        $limit = 1; 
         $offset = ($page-1) * $limit;
         $nbrDePages = ceil($nbElements/$limit);
         $this->nbrDePages = $nbrDePages;
@@ -44,11 +44,10 @@ class MultiModel{
             
             $contratRequete = " WHERE `contrat` LIKE '" .$contrat."'";
         }
+
         $lieuRequete = "";
         if(!empty($lieu)){
-
             $lieuRequete = " AND `departement` LIKE '" .$lieu."'";
-
         }
 
         $sql = "SELECT
@@ -56,10 +55,11 @@ class MultiModel{
                 ,`titre`
                 ,`description`
                 ,`salaire`
+                ,`date`
                 FROM " . self::TABLE_NAME ."
                 $contratRequete 
-                $lieuRequete
-                ORDER BY `date` ASC 
+                $lieuRequete 
+                ORDER BY `date` DESC 
                 LIMIT " .$limit. "
                 OFFSET " .$offset . ";
         ";
@@ -82,6 +82,7 @@ class MultiModel{
                 ,`titre`
                 ,`description`
                 ,`salaire`
+                ,`date`
                 FROM " . self::TABLE_NAME ."
                 $currentId
             
@@ -124,6 +125,11 @@ class MultiModel{
         }
     }
 
+    public function getDate()
+    {
+        return $this->date;
+
+    }
 
     public function getId()
     {

@@ -10,15 +10,21 @@ require 'vendor/autoload.php';
 
 ?>
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+</html>
     <title>Document</title>
 </head>
-<body>
+
     <h1>Paul Emploi Occitanie</h1>
 
     <form method="post">Contrat
@@ -42,41 +48,59 @@ require 'vendor/autoload.php';
     <option value="Corse">Corse</option>
     <option value="Aquitaine">Aquitaine</option>
 </select>
-<button type="submit">Filtrer</button>
+<button class="btn btn-primary" type="submit">Filtrer</button>
     </form>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-  <?php foreach($multis as $multi): ?>
-    <h5><a href="?page=delete&id=<?= $multi->getId()?>">Supprimer</a></h5> 
+    <div>
+  <?php foreach($multis as $multi): ?> 
       <div class="card h-100">
         <div class="card-body">
-          <h3 class="card-title"><?= $multi->getTitre() ?></h3>
+          <h3 class="card-title">Poste <?= $multi->getTitre() ?></h3>
           <h4 class="card-title"><?= $multi->getDescription() ?></h4>
-          <h5 class="card-title"><?= $multi->getSalaire() ?></h5>
+          <h5 class="card-title">Salaire<?= $multi->getSalaire() ?></h5>
+          <!-- <h5 class="card-title"><?= $multi->getDate() ?></h5> -->
           <p class="card-text"></p>
-          <h5><a href="?page=single&id=<?= $multi->getId()?>">Consulter</a></h5> 
+          <h5><a href="?page=single&id=<?= $multi->getId()?>">Consulter</a></h5>
+          <h5><a href="?page=delete&id=<?= $multi->getId()?>">Supprimer</a></h5>
         </div>
       </div>
     </div>
     
   <?php endforeach ?>
-  <?php for($page = 1; $page<= $nbrDePages; $page++) {  
+  
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="index.php?p=<?= $page ?>" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+  <?php  for($page = 1; $page<= $nbrDePages; $page++){
+  echo '<li class="page-item"><a class="page-link" href="index.php?p='. $page .'">'. $page.'</a></li>';
+  }
+    
+?>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>
 
-echo '<a href = "index.php?p=' . $page . '">' . $page . ' </a>';  
 
-}    
-
-?> 
 
  
   
 
-  <h1>Nouvelle Annonce</h1>
+  <h1>Ajoutez une Annonce</h1>
     <form method="post" action="?page=add">
         <input placeholder="Titre"name="titre"></input> 
         <input placeholder="Description"name="description"></input>
         <input placeholder="Salaire"name="salaire"></input>
 
-            <select name="departement" >
+            <select class="form-select" name="departement" >
                 <option value="Département">Département</option>
                 <option value="Gard">Gard</option>
                 <option value="Lozere">Lozére</option>
@@ -86,7 +110,7 @@ echo '<a href = "index.php?p=' . $page . '">' . $page . ' </a>';
                 <option value="Aquitaine">Aquitaine</option>
             </select>
 
-            <select name="contrat">
+            <select class="form-select" name="contrat">
                 <option value="Type de contrat">Type de contrat</option>
                 <option value="CDI">CDI</option>
                 <option value="CDD">CDD</option>
@@ -94,8 +118,22 @@ echo '<a href = "index.php?p=' . $page . '">' . $page . ' </a>';
                 <option value="Formation">Formation</option>
             </select>
 
-        <input placeholder="Date"name="date"></input>
-        <button type="submit">Ajouter</button>
+        <input type="date" placeholder="Date"name="date"></input>
+        <button class="btn btn-primary" type="submit">Ajouter</button>
+
+
+     
+<!-- <?php
+// $date = date_create();
+// echo date_format($date, 'U = Y-m-d H:i:s') . "\n";
+
+// date_timestamp_set($date, 1171502725);
+// echo date_format($date, 'U = Y-m-d H:i:s') . "\n";
+?> -->
+
+
+<!-- <?= $multi->getDate()?> -->
+
     </form>
 </div>
 </body>
