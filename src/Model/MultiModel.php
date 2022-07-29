@@ -26,7 +26,7 @@ class MultiModel{
         $this->pdo = $database->getPDO();
     }
 
-    public function findAll($page=1, $contrat =null, $lieu=null)
+    public function findAll($page = 1, $contrat =null, $lieu=null)
     { 
 
     $contratRequete="" ; 
@@ -55,7 +55,7 @@ class MultiModel{
             $pdoStatement = $this->pdo->query($nbElements);
             $nbElements = $pdoStatement->fetchColumn();
             $limit = 1; 
-            $offset = ($page-1) * $limit;
+            $offset = ($page - 1) * $limit;
             $nbrDePages = ceil($nbElements/$limit);
             $this->nbrDePages = $nbrDePages;
 
@@ -231,5 +231,25 @@ class MultiModel{
 
         return $this;
     }
+
+            /**
+             * Get the value of page
+             */ 
+            public function getPage()
+            {
+                        return $this->page;
+            }
+
+            /**
+             * Set the value of page
+             *
+             * @return  self
+             */ 
+            public function setPage($page)
+            {
+                        $this->page = $page;
+
+                        return $this;
+            }
 }
 

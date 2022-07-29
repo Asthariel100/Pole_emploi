@@ -19,6 +19,10 @@ class Application
             'Controller' => 'SingleController',
             'method' => 'index'
         ],
+        'admin'=> [
+            'Controller' => 'AdminController',
+            'method' => 'index'
+        ],
         'error404' => [
             'Controller' => 'ErrorController',
             'method' => 'error404'

@@ -30,9 +30,10 @@ require 'vendor/autoload.php';
     </div>
 
     <form method="get">
-      <h1>Contrat</h1>
+      <div class="d-flex">
+      <h1>Contrat: </h1>
     <input type="hidden" name="p" value="1">
-    <select name="filtre_contrat" >
+    <select class="form-select" name="filtre_contrat" >
     <option value="">Type de contrat</option>
     <option value="CDI">CDI</option>
     <option value="CDD">CDD</option>
@@ -40,9 +41,9 @@ require 'vendor/autoload.php';
     <option value="Formation">Formation</option>
     </select>
 
-<h1>Département</h1>
+<h1>Département: </h1>
 <input type="hidden" name="p" value="1">
-<select name="filtre_departement">
+<select class="form-select" name="filtre_departement">
     <option value="">Département</option>
     <option value="Gard">Gard</option>
     <option value="Lozere">Lozére</option>
@@ -52,6 +53,7 @@ require 'vendor/autoload.php';
     <option value="Aquitaine">Aquitaine</option>
 </select>
 <button class="btn btn-primary" type="submit">Filtrer</button>
+</div>
     </form>
     <div>
   <?php foreach($multis as $multi): ?> 
@@ -72,13 +74,13 @@ require 'vendor/autoload.php';
 <nav aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item">
-      <a class="page-link" href="index.php?p=<?= $page ?>" aria-label="Previous">
+      <a class="page-link" href="index.php?page=admin&p=1" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
         <span class="sr-only">Previous</span>
       </a>
     </li>
   <?php  for($page = 1; $page<= $nbrDePages; $page++){
-  echo '<li class="page-item"><a class="page-link" href="index.php?p='. $page .'&filtre_contrat='. $filtre_contrat .'&filtre_departement='. $filtre_departement .'">'. $page.'</a></li>';
+  echo '<li class="page-item"><a class="page-link" href="index.php?page=admin&p='. $page .'&filtre_contrat='. $filtre_contrat .'&filtre_departement='. $filtre_departement .'">'. $page.'</a></li>';
   }?>
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Next">
@@ -88,5 +90,34 @@ require 'vendor/autoload.php';
     </li>
   </ul>
 </nav>
+
+  <h1>Ajoutez une Annonce</h1>
+    <form method="post" action="?page=add">
+        <input placeholder="Titre"name="titre"></input> 
+        <input placeholder="Description"name="description"></input>
+        <input placeholder="Salaire"name="salaire"></input>
+
+            <select class="form-select" name="departement" >
+                <option value="Département">Département</option>
+                <option value="Gard">Gard</option>
+                <option value="Lozere">Lozére</option>
+                <option value="Alsace">Alsace</option>
+                <option value="Guadeloupe">Guadeloupe</option>
+                <option value="Corse">Corse</option>
+                <option value="Aquitaine">Aquitaine</option>
+            </select>
+
+            <select class="form-select" name="contrat">
+                <option value="Type de contrat">Type de contrat</option>
+                <option value="CDI">CDI</option>
+                <option value="CDD">CDD</option>
+                <option value="Interim">Interim</option>
+                <option value="Formation">Formation</option>
+            </select>
+
+        <input type="date" placeholder="Date"name="date"></input>
+        <button class="btn btn-primary" type="submit">Ajouter</button>
+    </form>
+</div>
 </body>
 </html>
