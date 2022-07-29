@@ -34,15 +34,14 @@ class Application
         'single' => [
             'Controller' => 'MultiController',
             'method' => 'one'
-        ]
-
+        ],
     ];
 
     const DEFAULT_ROUTE = 'multi';
 
     private function match($route_name)
     {
-        // je vérifie sir la clef existe dans la liste des pages autorisées
+        // je vérifie si la clef existe dans la liste des pages autorisées
         if (isset(self::AUTHORIZED_PAGES[$route_name])) {
             $route = self::AUTHORIZED_PAGES[$route_name];
         } else {
@@ -62,7 +61,6 @@ class Application
         // je vérifie si la route demandée existe
         $route = $this->match($route_name);
 
-        // dump($route);
 
         // j'instancie le controller correspondant à la route demandée
         $controller_name = 'App\Controller\\' . $route['Controller'];

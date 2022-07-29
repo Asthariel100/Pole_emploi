@@ -29,7 +29,8 @@ require 'vendor/autoload.php';
       <h1>Paul Emploi Occitanie</h1>
     </div>
 
-    <form method="post">Contrat
+    <form method="get">
+      <h1>Contrat</h1>
     <input type="hidden" name="p" value="1">
     <select name="filtre_contrat" >
     <option value="">Type de contrat</option>
@@ -37,9 +38,9 @@ require 'vendor/autoload.php';
     <option value="CDD">CDD</option>
     <option value="Interim">Interim</option>
     <option value="Formation">Formation</option>
-</select>
+    </select>
 
-<form method="post">Département
+<h1>Département</h1>
 <input type="hidden" name="p" value="1">
 <select name="filtre_departement">
     <option value="">Département</option>
@@ -59,7 +60,6 @@ require 'vendor/autoload.php';
           <h3 class="card-title">Poste: <?= $multi->getTitre() ?></h3>
           <h4 class="card-title">Description: <?= $multi->getDescription() ?></h4>
           <h5 class="card-title">Salaire: <?= $multi->getSalaire() ?></h5>
-          <!-- <h5 class="card-title"><?= $multi->getDate() ?></h5> -->
           <p class="card-text"></p>
           <h5><a href="?page=single&id=<?= $multi->getId()?>">Consulter</a></h5>
           <h5><a href="?page=delete&id=<?= $multi->getId()?>">Supprimer</a></h5>
@@ -78,7 +78,7 @@ require 'vendor/autoload.php';
       </a>
     </li>
   <?php  for($page = 1; $page<= $nbrDePages; $page++){
-  echo '<li class="page-item"><a class="page-link" href="index.php?p='. $page .'">'. $page.'</a></li>';
+  echo '<li class="page-item"><a class="page-link" href="index.php?p='. $page .'&filtre_contrat='. $filtre_contrat .'&filtre_departement='. $filtre_departement .'">'. $page.'</a></li>';
   }?>
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Next">

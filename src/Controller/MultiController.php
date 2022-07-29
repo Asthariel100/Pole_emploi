@@ -32,18 +32,15 @@ class MultiController extends AbstractController
             $filtre_departement = null; 
         } 
         
-        // $lieuRequete= $_GET["filtre_departement"];        
-        // $filtered = new MultiModel(); 
-        // $filtered->findFiltered($contratRequete, $lieuRequete);
-
-
         $id = $multiModel->getId();
         $multis = $multiModel->findAll($page, $filtre_contrat, $filtre_departement);
         $nbrDePages = $multiModel->getNbrDePages();
-       
         $this->render('multi.php', [
             'multis' => $multis,
             'nbrDePages'=> $nbrDePages,
+            'filtre_contrat' => $filtre_contrat,
+            'filtre_departement' => $filtre_departement,
+            'id'=> $id
         ]);
     }
 
@@ -63,8 +60,7 @@ class MultiController extends AbstractController
         $delete->deleteProduct($id);
         header('Location: ?page=multi');
         }
-        
-
+           
     public function add(){
 
     $titre = $_POST["titre"];

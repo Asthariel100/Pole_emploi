@@ -31,6 +31,7 @@ class MultiModel{
 
     $contratRequete="" ; 
     $lieuRequete=""; 
+ 
 
         if (!empty($contrat)){
         
@@ -45,9 +46,11 @@ class MultiModel{
             }           
         }
 
-            $nbElements = 'SELECT 
+            $nbElements = "SELECT 
                     COUNT(`id`) 
-                    FROM ' . $result .'';
+                    FROM " . self::TABLE_NAME ."
+                    $contratRequete
+                    $lieuRequete";
             
             $pdoStatement = $this->pdo->query($nbElements);
             $nbElements = $pdoStatement->fetchColumn();
@@ -62,6 +65,8 @@ class MultiModel{
                     ,`description`
                     ,`salaire`
                     ,`date`
+                    ,`departement`
+                    ,`contrat`
                     FROM " . self::TABLE_NAME ." 
                     $contratRequete  
                     $lieuRequete          
@@ -69,9 +74,7 @@ class MultiModel{
                     LIMIT " .$limit. "
                     OFFSET " .$offset . ";
             ";
-            
-        $pdoStatement = $this->pdo->query($sql);
-                       
+        $pdoStatement = $this->pdo->query($sql);         
         $result = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
         return $result;  
     }
