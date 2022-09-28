@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Model\MultiModel;
+use App\Model\PostulantModel;
 use App\Controller\AbstractController;
 
 class MultiController extends AbstractController
@@ -31,15 +32,25 @@ class MultiController extends AbstractController
             }else {  
             $filtre_departement = null; 
         } 
+        if (isset ($_POST['search']) ) {  
+            $search = $_POST['search']; 
+            $page = $_POST["p"];}
+            elseif(isset ($_GET['search'])){
+                $search= $_GET["search"];
+            }else {  
+            $search = null; 
+        }
+        
         
         $id = $multiModel->getId();
-        $multis = $multiModel->findAll($page, $filtre_contrat, $filtre_departement);
+        $multis = $multiModel->findAll($page, $filtre_contrat, $filtre_departement, $search);
         $nbrDePages = $multiModel->getNbrDePages();
         $this->render('multi.php', [
             'multis' => $multis,
             'nbrDePages'=> $nbrDePages,
             'filtre_contrat' => $filtre_contrat,
             'filtre_departement' => $filtre_departement,
+            'search' => $search,
             'id'=> $id
         ]);
     }
@@ -51,6 +62,20 @@ class MultiController extends AbstractController
         $single = $one->findOne($id);
         $this->render('single.php', [   
             'single'=> $single,
+        ]);
+    }
+
+    public function oneAdmin(){
+
+        $id = $_GET["id"];
+        $one = new  MultiModel();
+        $one->getId();
+        $test = new PostulantModel();
+        $multis = $test->findAll($id);
+        $single = $one->findOne($id);
+        $this->render('adminsingle.php', [   
+            'single'=> $single,
+            'multis' => $multis,
         ]);
     }
 

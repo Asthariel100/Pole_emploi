@@ -26,39 +26,45 @@ class MultiModel{
         $this->pdo = $database->getPDO();
     }
 
-    public function findAll($page = 1, $contrat =null, $lieu=null)
+    public function findAll($page = 1, $contrat =null, $lieu=null, $search=null)
     { 
 
     $contratRequete="" ; 
     $lieuRequete=""; 
+    $searchInfo="";
  
 
         if (!empty($contrat)){
         
-            $contratRequete = " WHERE `contrat` LIKE '" .$contrat."'";
-        }
-    
+            $contratRequete = "AND `contrat` LIKE '$contrat'";
+        }   
         if(!empty($lieu)){
-            if(empty($contratRequete)){
-                $lieuRequete = " WHERE `departement` LIKE '" .$lieu."'";
-            }else{
-                $lieuRequete = " AND `departement` LIKE '" .$lieu."'";
-            }           
+                $lieuRequete = "AND `departement` LIKE '" .$lieu."'";
+        
         }
+        if (!empty($search))
+        {           
+            
+                $searchInfo= "AND `titre` LIKE '$search%'";               
+        }
+        
 
             $nbElements = "SELECT 
                     COUNT(`id`) 
                     FROM " . self::TABLE_NAME ."
+                    WHERE  `date` <= NOW() -INTERVAL 30 DAY
+                    $searchInfo
                     $contratRequete
                     $lieuRequete";
-            
+                    $date = "DESC";
+
             $pdoStatement = $this->pdo->query($nbElements);
             $nbElements = $pdoStatement->fetchColumn();
-            $limit = 1; 
+
+            $limit = 4; 
             $offset = ($page - 1) * $limit;
             $nbrDePages = ceil($nbElements/$limit);
             $this->nbrDePages = $nbrDePages;
-
             $sql = "SELECT
                     `id`
                     ,`titre`
@@ -67,10 +73,12 @@ class MultiModel{
                     ,`date`
                     ,`departement`
                     ,`contrat`
-                    FROM " . self::TABLE_NAME ." 
+                    FROM " . self::TABLE_NAME ."                    
+                    WHERE  `date` <= NOW() -INTERVAL 30 DAY 
                     $contratRequete  
-                    $lieuRequete          
-                    ORDER BY `date` DESC 
+                    $lieuRequete 
+                    $searchInfo     
+                    ORDER BY `date` $date 
                     LIMIT " .$limit. "
                     OFFSET " .$offset . ";
             ";
@@ -115,7 +123,7 @@ class MultiModel{
     {
        
         $sql = "INSERT INTO " . self::TABLE_NAME . "
-                (`titre`, `description`, `salaire`, `contrat`, `date`, `departement` )
+                (`titre`, `description`, `salaire`, `contrat`, `date`, `departement`)
                 VALUES ('$titre', '$description', '$salaire','$contrat','$date','$departement')";
   
                 $pdoStatement = $this->pdo->prepare($sql);

@@ -23,6 +23,11 @@ class Application
             'Controller' => 'AdminController',
             'method' => 'index'
         ],
+        'adminsingle'=> [
+            'Controller' => 'MultiController',
+            'method' => 'oneAdmin'
+        ],
+
         'error404' => [
             'Controller' => 'ErrorController',
             'method' => 'error404'
@@ -34,6 +39,10 @@ class Application
         'add' => [
             'Controller' => 'MultiController',
             'method' => 'add'
+        ],
+        'addPostulant' => [
+            'Controller' => 'SingleController',
+            'method' => 'addPostulantForm'
         ],
         'single' => [
             'Controller' => 'MultiController',

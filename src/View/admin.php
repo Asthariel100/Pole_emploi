@@ -15,23 +15,25 @@ require 'vendor/autoload.php';
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Pole Emploi Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
   </head>
-  <body>
+  <body class="bg-primary bg-gradient p-5">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 
 </html>
-    <title>Document</title>
+    <title>Pole Emploi Admin</title>
 </head>
-
-    <div class="d-flex justify-items-center">
-      <h1>Paul Emploi Occitanie</h1>
+<div class="container text-center p-5 bg-info">
+    <div class="container text-center text-light p-5">
+      <h1>Pôle Emploi</h1>
     </div>
 
+    <div class="container text-center p-4 bg-info">
     <form method="get">
-      <div class="d-flex">
-      <h1>Contrat: </h1>
+      <div class="row text-center">
+        <div class="col">
+      <h1 class="text-light">Contrats</h1>
     <input type="hidden" name="p" value="1">
     <select class="form-select" name="filtre_contrat" >
     <option value="">Type de contrat</option>
@@ -40,8 +42,9 @@ require 'vendor/autoload.php';
     <option value="Interim">Interim</option>
     <option value="Formation">Formation</option>
     </select>
-
-<h1>Département: </h1>
+</div>
+<div class="col">
+<h1 class="text-light">Département</h1>
 <input type="hidden" name="p" value="1">
 <select class="form-select" name="filtre_departement">
     <option value="">Département</option>
@@ -52,29 +55,31 @@ require 'vendor/autoload.php';
     <option value="Corse">Corse</option>
     <option value="Aquitaine">Aquitaine</option>
 </select>
-<button class="btn btn-primary" type="submit">Filtrer</button>
 </div>
-    </form>
-    <div>
-  <?php foreach($multis as $multi): ?> 
-      <div class="card h-50">
-        <div class="card-body">
+</div>
+<div class="container text-center bg-info p-3">
+<button class="btn btn-primary btn-lg p-3 text-light shadow-lg" type="submit">Filtrer les annonces</button>
+</div>
+</form>
+<?php foreach($multis as $multi): ?> 
+    <div class="container p-4 bg-secondary">
+      <div class="card h-50 shadow-lg p-3">
+        <div class="card-body border border-info border-5 p-3">
           <h3 class="card-title">Poste: <?= $multi->getTitre() ?></h3>
           <h4 class="card-title">Description: <?= $multi->getDescription() ?></h4>
           <h5 class="card-title">Salaire: <?= $multi->getSalaire() ?></h5>
-          <p class="card-text"></p>
-          <h5><a href="?page=single&id=<?= $multi->getId()?>">Consulter</a></h5>
-          <h5><a href="?page=delete&id=<?= $multi->getId()?>">Supprimer</a></h5>
+          <a class="btn btn-primary shadow text-end" href="?page=adminsingle&id=<?= $multi->getId()?>">Consulter</a>
+          <a class="btn btn-primary shadow d-none" href="?page=delete&id=<?= $multi->getId()?>">Supprimer</a>
         </div>
       </div>
     </div>
-    
   <?php endforeach ?>
   
+  <div class="container text-center p-3">  
 <nav aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item">
-      <a class="page-link" href="index.php?page=admin&p=1" aria-label="Previous">
+      <a class="page-link" href="index.php?p=<?= $page ?>" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
         <span class="sr-only">Previous</span>
       </a>
@@ -91,12 +96,14 @@ require 'vendor/autoload.php';
   </ul>
 </nav>
 
-  <h1>Ajoutez une Annonce</h1>
+  <h1 class="text-light">Ajouter une Annonce:</h1>
     <form method="post" action="?page=add">
-        <input placeholder="Titre"name="titre"></input> 
-        <input placeholder="Description"name="description"></input>
-        <input placeholder="Salaire"name="salaire"></input>
-
+    <label for="Titre" class="form-label text-light">Titre</label>
+        <input placeholder="Titre" class="form-control" name="titre"></input> 
+    <label for="Description" class="form-label text-light">Description</label>
+        <input placeholder="Description"class="form-control" name="description"></input>
+    <label for="Salaire" class="form-label text-light">Salaire</label>
+        <input placeholder="Salaire" class="form-control" name="salaire"></input>
             <select class="form-select" name="departement" >
                 <option value="Département">Département</option>
                 <option value="Gard">Gard</option>
@@ -106,7 +113,6 @@ require 'vendor/autoload.php';
                 <option value="Corse">Corse</option>
                 <option value="Aquitaine">Aquitaine</option>
             </select>
-
             <select class="form-select" name="contrat">
                 <option value="Type de contrat">Type de contrat</option>
                 <option value="CDI">CDI</option>
@@ -114,10 +120,10 @@ require 'vendor/autoload.php';
                 <option value="Interim">Interim</option>
                 <option value="Formation">Formation</option>
             </select>
-
-        <input type="date" placeholder="Date"name="date"></input>
+        <input class="form-control" type="date" placeholder="Date" name="date"></input>
         <button class="btn btn-primary" type="submit">Ajouter</button>
     </form>
+</div>
 </div>
 </body>
 </html>

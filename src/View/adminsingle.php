@@ -32,27 +32,21 @@ require 'vendor/autoload.php';
           <h5><a href="?page=delete&id=<?= $single->getId()?>">Supprimer</a></h5> 
         </div>
       </div> 
-    <form method="post" action="?page=addPostulant">
-      <div class="mb-3 text-center p-5">
-        <h2 class="text-light">Postuler à cette annonce:</h2>
-        <div class="mb-3">
-          <input class="form-control" name="username" placeholder="Nom/Prenom" >
-        </div>
-        <div class="mb-3">
-          <input class="form-control" name="email" placeholder="Email" >
-        </div>
-        <div class="mb-3">
-          <input class="form-control" name="commentaire" placeholder="Commentaire" >
-        </div>
-        <div class="mb-3">
-          <input class="form-control d-none" name="annonce_id" placeholder="test" value=<?= $single->getId()?>>
-        </div>
-        <button class="btn btn-primary m-3" type="submit">Postuler</button>
-      </div>
-      <div>
-      <a class="text-primary p-3" href="?page=multi">Retour Acceuil</a>
-      </div>
-    </form>
+
+      <?php foreach($multis as $multi): ?> 
+        <div class="container p-4 bg-secondary">
+          <div class="card h-50 shadow-lg p-3">
+            <div class="card-body border border-info border-5 p-3">
+              <h3 class="card-title">Nom d'utilisateur : <?= $multi->getUsername() ?></h3>
+              <h4 class="card-title">Email : <?= $multi->getEmail() ?></h4>
+              <h5 class="card-title">Commentaire : <?= $multi->getCommentaire() ?></h5>
+            </div>
+          </div>
+        </div>   
+      <?php endforeach ?>
+</div>
+<div class="text-center">
+  <a class="text-white p-3" href="?page=admin">Retour Acceuil</a>
 </div>
 </body>
 </html>
