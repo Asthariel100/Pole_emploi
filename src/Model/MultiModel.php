@@ -14,9 +14,15 @@ class MultiModel{
 
     protected $salaire;
 
+    protected $departement;
+
+    protected $contrat;
+
     protected $pdo;
     
     protected $nbrDePages;
+
+    protected $date;
 
     const TABLE_NAME = 'annonce';
 
