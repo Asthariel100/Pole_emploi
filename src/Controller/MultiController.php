@@ -65,6 +65,10 @@ class MultiController extends AbstractController
         ]);
     }
 
+//http://localhost/Pole%20emploi/Pole_emploi/?page=adminsingle&id=1
+//Cette fonction permet de recupérer une annonce ainsi que les commentaires associées
+//récupération d'une annonce, récupération de tout les postulant associés
+// rendu de la page avec les deux objets don ont a besoin, single pour l'annonce et multi pour les postulants
     public function oneAdmin(){
 
         $id = $_GET["id"];
